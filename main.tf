@@ -8,6 +8,8 @@ locals {
   region                    = data.google_client_config.google_client.region
   zones                     = formatlist("${local.region}-%s", var.zone_letters)
   memory_mb_per_node        = var.memory_gb_per_node * 1024
+  discovery_ip              = split(":", google_memcache_instance.memcache_store.discovery_endpoint).0
+  discovery_port            = split(":", google_memcache_instance.memcache_store.discovery_endpoint).1
 }
 
 data "google_client_config" "google_client" {}

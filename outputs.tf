@@ -7,10 +7,10 @@ output "usage_IAM_roles" {
 
 output "discovery_ip" {
   description = "The IP address of the endpoint for Discovery API of the memcache instance."
-  value = split(":", google_memcache_instance.memcache_store.discovery_endpoint).0
+  value = local.discovery_ip
 }
 
 output "discovery_port" {
   description = "The port number of the endpoint for Discovery API of the memcache instance."
-  value = split(":", google_memcache_instance.memcache_store.discovery_endpoint).1
+  value = local.discovery_port
 }
