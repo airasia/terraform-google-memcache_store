@@ -33,7 +33,7 @@ variable "zone_letters" {
 }
 
 variable "node_count" {
-  description = "Number of memcache nodes to be provisioned."
+  description = "Total number of memcache nodes to be provisioned. These nodes will be distributed among the zones selected in \"var.zone_letters\"."
   type        = number
   default     = 1
 }
