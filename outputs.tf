@@ -19,3 +19,18 @@ output "discovery_port" {
   description = "The port number of the endpoint for Discovery API of the memcache instance."
   value = local.discovery_port
 }
+
+output "node_ips" {
+  description = "The IP addresses of all nodes in the memcache instance."
+  value = google_memcache_instance.memcache_store.memcache_nodes.*.host
+}
+
+output "node_ports" {
+  description = "The port numbers of all nodes in the memcache instance."
+  value = google_memcache_instance.memcache_store.memcache_nodes.*.port
+}
+
+output "node_zones" {
+  description = "The zones of all nodes in the memcache instance."
+  value = google_memcache_instance.memcache_store.memcache_nodes.*.zone
+}
