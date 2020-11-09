@@ -10,12 +10,18 @@ locals {
   memory_mb_per_node        = var.memory_gb_per_node * 1024
   discovery_ip              = split(":", google_memcache_instance.memcache_store.discovery_endpoint).0
   discovery_port            = split(":", google_memcache_instance.memcache_store.discovery_endpoint).1
+  create_private_dns        = var.dns_zone_name == "" ? false : true
 }
 
 data "google_client_config" "google_client" {}
 
 resource "google_project_service" "memcache_api" {
   service            = "memcache.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_project_service" "dns_api" {
+  service            = "dns.googleapis.com"
   disable_on_destroy = false
 }
 
@@ -38,4 +44,18 @@ resource "google_memcache_instance" "memcache_store" {
     update = var.memcache_timeout
     delete = var.memcache_timeout
   }
+}
+
+resource "google_dns_record_set" "memcache_subdomain" {
+  count        = local.create_private_dns ? 1 : 0
+  managed_zone = var.dns_zone_name
+  name         = format("%s.%s", var.dns_subdomain, data.google_dns_managed_zone.dns_zone.dns_name)
+  type         = "A"
+  rrdatas      = [local.discovery_ip]
+  ttl          = var.dns_ttl
+}
+
+data "google_dns_managed_zone" "dns_zone" {
+  name         = var.dns_zone_name
+  depends_on   = [google_project_service.dns_api]
 }

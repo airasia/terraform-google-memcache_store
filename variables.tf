@@ -61,3 +61,21 @@ variable "memcache_timeout" {
   type        = string
   default     = "20m"
 }
+
+variable "dns_zone_name" {
+  description = "OPTIONAL. Name of DNS zone to access the memcache instance over a private DNS subdomain instead of a private IP address."
+  type        = string
+  default     = ""
+}
+
+variable "dns_subdomain" {
+  description = "A private DNS subdomain over which the memcache instance maybe accessed. This is disregarded if \"var.dns_zone_name\" is not specified."
+  type        = string
+  default     = "memcache"
+}
+
+variable "dns_ttl" {
+  description = "The time-to-live of the private DNS record set in seconds."
+  type        = number
+  default     = 300
+}
