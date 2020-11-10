@@ -7,7 +7,7 @@ output "usage_IAM_roles" {
 
 output "discovery_ip" {
   description = "The IP address of the endpoint for Discovery API of the memcache instance."
-  value = local.discovery_ip
+  value       = local.discovery_ip
 }
 
 output "discovery_dns" {
@@ -17,20 +17,20 @@ output "discovery_dns" {
 
 output "discovery_port" {
   description = "The port number of the endpoint for Discovery API of the memcache instance."
-  value = local.discovery_port
+  value       = local.discovery_port
 }
 
 output "node_ips" {
   description = "The IP addresses of all nodes in the memcache instance."
-  value = google_memcache_instance.memcache_store.memcache_nodes.*.host
+  value       = google_memcache_instance.memcache_store.memcache_nodes.*.host
 }
 
 output "node_ports" {
   description = "The port numbers of all nodes in the memcache instance."
-  value = google_memcache_instance.memcache_store.memcache_nodes.*.port
+  value       = google_memcache_instance.memcache_store.memcache_nodes.*.port
 }
 
 output "node_zones" {
   description = "The zones of all nodes in the memcache instance."
-  value = google_memcache_instance.memcache_store.memcache_nodes.*.zone
+  value       = google_memcache_instance.memcache_store.memcache_nodes.*.zone
 }
